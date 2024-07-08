@@ -11,6 +11,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import StoreProvider from "@/store/provider";
 
 export default function RootLayout({ children }: ChildrenProps) {
   return (
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: ChildrenProps) {
           <AppRouterCacheProvider>
             <AppSessionProvider>
               <AppThemeProvider>
-                <InitPage>{children}</InitPage>
+                <InitPage>
+                  <StoreProvider>{children}</StoreProvider>
+                </InitPage>
               </AppThemeProvider>
             </AppSessionProvider>
           </AppRouterCacheProvider>

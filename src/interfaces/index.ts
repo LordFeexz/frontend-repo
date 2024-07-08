@@ -12,3 +12,15 @@ export interface CustomSession extends Session {
     access_token?: string | null;
   };
 }
+
+export interface IPaginationQuery {
+  page?: number;
+  limit?: number;
+}
+
+export interface IPaginationProps {
+  page: number;
+  limit: number;
+  totalData: number;
+  totalPage: number;
+}
