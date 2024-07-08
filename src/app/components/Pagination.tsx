@@ -2,8 +2,7 @@
 
 import { TablePagination } from "@/components/ui/Mui";
 import type { IUser } from "@/interfaces/entities";
-import { GET_USER } from "@/store/action";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
 export interface PaginationProps {
@@ -12,7 +11,6 @@ export interface PaginationProps {
   totalData: number;
   limit: number;
   page: number;
-  initialData: IUser[];
 }
 
 export default function Pagination({
@@ -20,7 +18,6 @@ export default function Pagination({
   rowsPerPageOptions,
   totalData,
   limit: _limit,
-  initialData,
   page: _page,
 }: PaginationProps) {
   const dispatch = useDispatch();
@@ -37,10 +34,6 @@ export default function Pagination({
     setLimit(+e.target.value);
     setPage(0);
   };
-
-  useEffect(() => {
-    dispatch({ type: GET_USER, data: initialData });
-  }, [dispatch, initialData]);
 
   return (
     <TablePagination

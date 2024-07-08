@@ -11,18 +11,26 @@ import {
 } from "@/components/ui/Mui";
 import type { IUser } from "@/interfaces/entities";
 import Pagination from "./components/Pagination";
+import EditBtn from "./components/EditButton";
+import { getServerSideSession } from "@/utils/session";
+import UserTableBody from "./components/TableBody";
 
 export default async function Home() {
-  const {
-    data,
-    totalData = 0,
-    page = 1,
-    limit = 10,
-  } = await getUserList({
-    page: 1,
-    limit: 10,
-  });
-  const column: (keyof IUser)[] = ["name", "email", "username"];
+  const [{ data, totalData = 0, page = 1, limit = 10 }, session] =
+    await Promise.all([
+      getUserList({
+        page: 1,
+        limit: 10,
+      }),
+      getServerSideSession(),
+    ]);
+
+  const column: (keyof IUser | "edit")[] = [
+    "name",
+    "email",
+    "username",
+    "edit",
+  ];
 
   return (
     <Container
@@ -42,20 +50,14 @@ export default async function Home() {
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {!!data.length &&
-                data.map((el) => (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={el.id}>
-                    {column.map((col) => (
-                      <TableCell key={col}>{el[col]}</TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-            </TableBody>
+            <UserTableBody
+              initialData={data}
+              column={column}
+              session={session}
+            />
           </Table>
         </TableContainer>
         <Pagination
-          initialData={data}
           as="div"
           totalData={totalData}
           rowsPerPageOptions={[10, 25, 100]}

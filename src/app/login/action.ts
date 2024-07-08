@@ -19,3 +19,22 @@ export const loginHandler = async (formData: FormData) => {
 
   return { error: null, data };
 };
+
+export const updateUser = async (formData: FormData) => {
+  const {
+    status,
+    data: { message },
+  } = await request.Mutation({
+    method: "PUT",
+    url: `/user/${formData.get("id")}`,
+    data: {
+      name: formData.get("name"),
+      username: formData.get("username"),
+      email: formData.get("email"),
+    },
+  });
+
+  if (status !== 200) return { error: message };
+
+  return { error: null };
+};
