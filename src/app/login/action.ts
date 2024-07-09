@@ -8,7 +8,7 @@ export const loginHandler = async (formData: FormData) => {
     status,
     data: { message, data },
   } = await request.Mutation<string>({
-    url: "/user/login",
+    url: "/adminLogin",
     method: "POST",
     data: {
       email: formData.get("email"),
@@ -27,7 +27,7 @@ export const updateUser = async (formData: FormData) => {
     data: { message },
   } = await request.Mutation({
     method: "PUT",
-    url: `/user/${formData.get("id")}`,
+    url: `/updateUserData`,
     data: {
       name: formData.get("name"),
       username: formData.get("username"),
@@ -38,6 +38,7 @@ export const updateUser = async (formData: FormData) => {
         (await getServerSideSession())?.user?.access_token ?? ""
       }`,
     },
+    params: { id: formData.get("id") },
   });
 
   if (status !== 200) return { error: message };

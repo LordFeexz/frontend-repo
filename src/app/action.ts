@@ -16,7 +16,7 @@ export const getUserList = async ({ page, limit }: IPaginationQuery) => {
     },
     status,
   } = await request.Query<IUser[]>({
-    url: "/user",
+    url: "/fetchUserData",
     params: { page, limit },
   });
 
