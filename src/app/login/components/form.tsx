@@ -1,12 +1,13 @@
 "use client";
 
 import SubmitBtn from "@/components/SubmitBtn";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Grid, Typography } from "@/components/ui/Mui";
 import { useState, type ChangeEvent } from "react";
 import { loginHandler } from "../action";
 import { swalError } from "@/utils/swal";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -91,6 +92,19 @@ export default function LoginForm() {
         text="Sign in"
         disabled={!email || !password}
       />
+      <Grid container>
+        <Grid item>
+          <Link prefetch href="/">
+            <Typography
+              variant="caption"
+              color={"blue"}
+              sx={{ cursor: "pointer" }}
+            >
+              Back to home
+            </Typography>
+          </Link>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

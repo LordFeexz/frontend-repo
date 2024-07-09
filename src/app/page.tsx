@@ -7,13 +7,15 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody,
+  Button,
+  Box,
+  Typography,
 } from "@/components/ui/Mui";
 import type { IUser } from "@/interfaces/entities";
 import Pagination from "./components/Pagination";
-import EditBtn from "./components/EditButton";
 import { getServerSideSession } from "@/utils/session";
 import UserTableBody from "./components/TableBody";
+import Link from "next/link";
 
 export default async function Home() {
   const [{ data, totalData = 0, page = 1, limit = 10 }, session] =
@@ -65,6 +67,17 @@ export default async function Home() {
           limit={limit}
         />
       </Paper>
+      {!session && (
+        <Box
+          sx={{ display: "flex", width: "full", justifyContent: "flex-end" }}
+        >
+          <Link href={"/login"} prefetch className="mt-4 relative right-[20%]">
+            <Button variant="contained">
+              <Typography>Login</Typography>
+            </Button>
+          </Link>
+        </Box>
+      )}
     </Container>
   );
 }
