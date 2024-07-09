@@ -1,6 +1,7 @@
 "use server";
 
 import request from "@/libs/axios";
+import { getServerSideSession } from "@/utils/session";
 
 export const loginHandler = async (formData: FormData) => {
   const {
@@ -31,6 +32,11 @@ export const updateUser = async (formData: FormData) => {
       name: formData.get("name"),
       username: formData.get("username"),
       email: formData.get("email"),
+    },
+    headers: {
+      authorization: `Bearer ${
+        (await getServerSideSession())?.user?.access_token ?? ""
+      }`,
     },
   });
 
