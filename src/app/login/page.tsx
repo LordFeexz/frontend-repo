@@ -29,3 +29,5 @@ export default async function Page() {
     </Container>
   );
 }
+
+export const dynamic = "force-static";
