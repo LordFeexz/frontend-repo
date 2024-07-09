@@ -28,6 +28,10 @@ const reducer: Reducer<InitialState, Action> = (
     case GET_USER: {
       return {
         ...state,
+        /**
+         * INFO
+         * - filter out duplicates
+         */
         datas: [
           ...state.datas,
           ...action.data.filter(
@@ -44,6 +48,10 @@ const reducer: Reducer<InitialState, Action> = (
     case UPDATE_USER: {
       return {
         ...state,
+        /**
+         * INFO
+         * Update new state
+         */
         datas: state.datas.map((item: IUser) =>
           item.id === action.data.id ? action.data : item
         ),
